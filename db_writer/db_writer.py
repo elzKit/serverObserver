@@ -5,7 +5,7 @@ def write(db_uri, json_msg, table_name = "server_metrics"):
     try:
         db_conn = psycopg2.connect(db_uri)
         cursor = db_conn.cursor()
-        # trying to be as generic as possible here, perhaps better methods exist?
+        # trying to be as generic as possible here, perhaps better ways exist?
         columns = str(tuple([k for k in json_msg.keys()])).replace("'", "") # columns must be without '
         values = str(tuple([str(v).replace("'","") for v in json_msg.values()])) # values must be with ', hence as str
 
