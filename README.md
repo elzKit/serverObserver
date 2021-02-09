@@ -11,7 +11,7 @@ Designed as 2 separate components, connected via kafka.
   * writes messages to a kafka topic (by default, "server_metrics")
 
 ## db_writer
-* reads messages from a kafka topic, and stores then in a PostgreSQL table.
+* reads messages from a kafka topic, and stores them in a PostgreSQL table.
 
 # Installation
 
@@ -20,7 +20,7 @@ Designed as 2 separate components, connected via kafka.
 as described in [here](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka)
 and [here](https://help.aiven.io/en/articles/489573-getting-started-with-aiven-postgresql)
 
-* Store the credentials (ca.pem, service.cert and service.key) in <cert-folder> 
+* Store the credentials (ca.pem, service.cert and service.key) in "cert-folder" 
 * Create a kafka topic. The default topic assumed by the system is "server_metrics".
 * Create a PostgreSQL table. The default table assumed by the system is "server_metrics"
 
@@ -34,7 +34,7 @@ pip install requests kafka-python
 
 ### Usage
 ```bash
-python kafka_producer.py --cert-folder=<credentials folder> --host=<your kafka service url> 
+python kafka_producer.py --cert-folder=<your cert-folder> --host=<your kafka service url> 
 --port=<the port of your kafka service>
 ```
 
@@ -51,5 +51,5 @@ pip install psycopg2-binary kafka-python
 ### Usage
 ```bash
 python kafka_consumer.py --cert-folder=<credentials folder> --host=<your kafka service url> 
---port=<the port of your kafka service> --db-uri=<postreSQL db uri>
+--port=<the port of your kafka service> --db-uri=<postgreSQL db uri>
 ```
