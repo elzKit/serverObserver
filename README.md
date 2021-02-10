@@ -11,8 +11,8 @@ Designed as 2 separate components, connected via kafka.
   * writes messages to a kafka topic (by default, "server_metrics")
 
 ## db_writer
-* reads messages from a kafka topic, and stores them in a PostgreSQL table with the same name
-as the kafka topic
+* reads messages from a kafka topic ((by default, "server_metrics"), and stores them in a PostgreSQL table 
+(by default, "server_metrics")
 
 # Installation
 
