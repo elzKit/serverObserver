@@ -11,7 +11,8 @@ Designed as 2 separate components, connected via kafka.
   * writes messages to a kafka topic (by default, "server_metrics")
 
 ## db_writer
-* reads messages from a kafka topic, and stores them in a PostgreSQL table.
+* reads messages from a kafka topic, and stores them in a PostgreSQL table with the same name
+as the kafka topic
 
 # Installation
 
@@ -22,7 +23,6 @@ and [here](https://help.aiven.io/en/articles/489573-getting-started-with-aiven-p
 
 * Store the credentials (ca.pem, service.cert and service.key) in "cert-folder" 
 * Create a kafka topic. The default topic assumed by the system is "server_metrics".
-* Create a PostgreSQL table. The default table assumed by the system is "server_metrics"
 
 ## Installing the website_checker
 ```bash
@@ -46,7 +46,7 @@ By default, it checks the websites specified in the websites.json config file pr
 cd db_writer
 virtualenv --python=python3.7 .venv
 source .venv/bin/activate
-pip install psycopg2-binary kafka-python
+pip install psycopg2-binary kafka-python 
 ```
 ### Usage
 ```bash

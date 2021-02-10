@@ -1,6 +1,7 @@
-import time
-import requests
 import re
+import time
+
+import requests
 
 
 def check(url, regexp=None):
@@ -52,6 +53,5 @@ def check(url, regexp=None):
     except requests.exceptions.RequestException as e:
         # we catch with this all exceptions explicitly raised from requests
         metrics['error_msg'] = "connection error" #str(e)
-
 
     return metrics
