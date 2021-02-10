@@ -22,6 +22,8 @@ def consume_events(cert_folder,
         ssl_keyfile=cert_folder + "/service.key",
     )
 
+    db_writer.create_table_if(db_uri, table_name)
+
     print(f'kafka consumer ready to receive from {topic_name} and write to {table_name}')
 
     for msg in consumer:

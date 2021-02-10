@@ -28,9 +28,7 @@ class Test(TestCase):
             q = f"DROP TABLE {self.table_name};"
             self.cursor.execute(q)
             self.db_conn.commit()
-            print(f'table {self.table_name} dropped')
-        except Exception as e:
-            print('Exception during tear down', e)
+        except psycopg2.errors.UndefinedTable as e:
             self.db_conn.rollback()
         self.cursor.close()
         self.db_conn.close()
@@ -41,7 +39,6 @@ class Test(TestCase):
             self.cursor.execute(q)
             records = self.cursor.fetchall()
             self.db_conn.commit()
-            print ('records', records)
             return len(records)
         except:
             self.db_conn.rollback()
@@ -77,6 +74,7 @@ class Test(TestCase):
         self.assertEqual(1, n, "the element is still there, even if we attempt to create a table")
 
     def test_write_ok_record_with_match(self):
+        db_writer.create_table_if(self.url, table_name=self.table_name)
         message = {
             'timestamp': time.time(),
             'url': 'http://toto.com',
@@ -88,6 +86,7 @@ class Test(TestCase):
         self.assertEqual(1, n, "write msg without match")
 
     def test_write_ok_record_without_match(self):
+        db_writer.create_table_if(self.url, table_name=self.table_name)
         message = {
             'timestamp': time.time(),
             'url': 'http://toto.com',
@@ -99,6 +98,7 @@ class Test(TestCase):
         self.assertEqual(1, n, "write msg without match")
 
     def test_write_err_record(self):
+        db_writer.create_table_if(self.url, table_name=self.table_name)
         message = {
             'timestamp': time.time(),
             'url': 'http://toto.com',

@@ -11,31 +11,24 @@ server_metrics_schema = """
 
 
 def create_table_if(db_uri, table_name='server_metrics'):
-    # throws if connection not possible
     db_conn = psycopg2.connect(db_uri)
     cursor = db_conn.cursor()
     try:
-        q = f"""SELECT * FROM {table_name};"""
+        q = f"SELECT * FROM {table_name};"
         cursor.execute(q)
         db_conn.commit()
-        # table exists - nothing to do
-    except Exception as e:
+    except psycopg2.errors.UndefinedTable:
         db_conn.rollback()
-        if "does not exist" in str(e):
-            q = f"""CREATE TABLE {table_name} ( {server_metrics_schema}); """
-            cursor.execute(q)
-            db_conn.commit()
-            print('created db table', table_name)
-        else:
-            print('exception', e)
-            cursor.rollback()
+        q = f"CREATE TABLE {table_name} ( {server_metrics_schema} );"
+        cursor.execute(q)
+        db_conn.commit()
+        # print('created db table', table_name)
     finally:
         cursor.close()
         db_conn.close()
 
 
 def write(db_uri, json_msg, table_name="server_metrics"):
-    create_table_if(db_uri, table_name=table_name)
     try:
         db_conn = psycopg2.connect(db_uri)
         cursor = db_conn.cursor()
@@ -46,12 +39,10 @@ def write(db_uri, json_msg, table_name="server_metrics"):
         q = f"""INSERT INTO {table_name} {columns} VALUES {values}"""
         cursor.execute(q)
         db_conn.commit()
-        print(f'written db record in {table_name} with values {json_msg}')
+        # print(f'written db record in {table_name} with values {json_msg}')
     except (Exception, psycopg2.Error) as error:
-        print("Error while connecting to PostgreSQL", error)
-
+        print("Error while writing to PostgreSQL", error)
     finally:
         if (db_conn):
             cursor.close()
             db_conn.close()
-

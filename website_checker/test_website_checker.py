@@ -24,7 +24,6 @@ class Test(TestCase):
         url = 'aiven.io'
         regexp = 'L?g in'
         msg = website_checker.check(url, regexp)
-        print(msg)
         # check the presence of expected metrics
         self.assertTrue('timestamp' in msg)
         self.assertTrue('url' in msg)
@@ -41,7 +40,6 @@ class Test(TestCase):
         url = 'aiven.io'
         regexp = 'L?g in'
         msg = website_checker.check(url, re.compile(regexp))
-        print(msg)
         # check the presence of expected metrics
         self.assertTrue('timestamp' in msg)
         self.assertTrue('url' in msg)
@@ -58,7 +56,6 @@ class Test(TestCase):
         url = 'this_website_does_not_exist.com'
         regexp = 'L?g in'
         msg = website_checker.check(url, re.compile(regexp))
-        print(msg)
         # check the presence of expected metrics
         self.assertTrue('timestamp' in msg)
         self.assertTrue('url' in msg)
