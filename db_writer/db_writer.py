@@ -33,8 +33,9 @@ def write(db_uri, json_msg, table_name="server_metrics"):
         db_conn = psycopg2.connect(db_uri)
         cursor = db_conn.cursor()
         # trying to be as generic as possible here, perhaps better ways exist?
-        columns = str(tuple([k for k in json_msg.keys()])).replace("'", "")  # columns must be without '
-        values = str(tuple([str(v).replace("'", "") for v in json_msg.values()]))  # values must be with ', hence as str
+        # cast to tuple to have str representation as (..,)
+        columns = str(tuple([k for k in json_msg.keys()])).replace("'", "")  # column names (==keys) must be without '
+        values = tuple([str(v) for v in json_msg.values()])
 
         q = f"""INSERT INTO {table_name} {columns} VALUES {values}"""
         cursor.execute(q)
