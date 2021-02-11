@@ -10,7 +10,7 @@ class Test(TestCase):
 
     def setUp(self):
         # for simplicity, we assume the test db is already running
-        self.url = "postgres://avnadmin:oajw7gopckewmims@pg-276e6f6c-elisa-50a0.aivencloud.com:13046/defaultdb?sslmode=require"
+        self.url = os.environ['DB']
         self.table_name = "server_metrics_test"
         self.db_conn = psycopg2.connect(self.url)
         self.cursor = self.db_conn.cursor()
