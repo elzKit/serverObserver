@@ -17,10 +17,7 @@ Designed as 2 separate components, connected via kafka.
 # Installation
 
 ## Service setup
-* create Kafka service and PostgreSQL service. They can be created easily with aiven, 
-as described in [here](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-kafka)
-and [here](https://help.aiven.io/en/articles/489573-getting-started-with-aiven-postgresql)
-
+* create Kafka service and PostgreSQL service.
 * Store the credentials (ca.pem, service.cert and service.key) in "cert-folder" 
 * Create a kafka topic. The default topic assumed by the system is "server_metrics".
 

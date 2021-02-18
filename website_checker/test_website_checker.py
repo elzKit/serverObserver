@@ -7,7 +7,7 @@ import website_checker
 class Test(TestCase):
 
     def test_check_url_existing_website_no_regexp(self):
-        url = 'aiven.io'
+        url = 'gmail.com'
         msg = website_checker.check(url)
         # check the presence of expected metrics
         self.assertTrue('timestamp' in msg)
@@ -17,11 +17,11 @@ class Test(TestCase):
         self.assertTrue('matched' not in msg)
 
         self.assertTrue(isinstance(msg['timestamp'], float))
-        self.assertTrue(msg['url'] == 'http://aiven.io')
+        self.assertTrue(msg['url'] == 'http://gmail.com')
         self.assertEqual(msg['status_code'], '200')
 
     def test_check_url_existing_website_with_regexp(self):
-        url = 'aiven.io'
+        url = 'gmail.com'
         regexp = 'L?g in'
         msg = website_checker.check(url, regexp)
         # check the presence of expected metrics
@@ -32,12 +32,12 @@ class Test(TestCase):
         self.assertTrue('matched' in msg)
 
         self.assertTrue(isinstance(msg['timestamp'], float))
-        self.assertTrue(msg['url'] == 'http://aiven.io')
+        self.assertTrue(msg['url'] == 'http://gmail.com')
         self.assertEqual(msg['status_code'], '200')
         self.assertTrue(msg['matched'])
 
     def test_check_url_existing_website_with_compiled_regexp(self):
-        url = 'aiven.io'
+        url = 'gmail.com'
         regexp = 'L?g in'
         msg = website_checker.check(url, re.compile(regexp))
         # check the presence of expected metrics
@@ -48,7 +48,7 @@ class Test(TestCase):
         self.assertTrue('matched' in msg)
 
         self.assertTrue(isinstance(msg['timestamp'], float))
-        self.assertTrue(msg['url'] == 'http://aiven.io')
+        self.assertTrue(msg['url'] == 'http://gmail.com')
         self.assertEqual(msg['status_code'], '200')
         self.assertTrue(msg['matched'])
 
